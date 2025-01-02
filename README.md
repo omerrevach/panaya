@@ -28,3 +28,4 @@ kubectl get svc
 # in browser to access the app
 192.168.49.2:<nodePort>
 ```
+#
