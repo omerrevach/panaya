@@ -33,6 +33,12 @@
     minikube start
     ```
 
+1. **Clone the minikube branch**
+    ```
+    git clone --branch minikube https://github.com/omerrevach/panaya.git
+    cd panaya
+    ```
+
 2. **This script ensures that sensitive information, like database credentials, is securely managed in Kubernetes. By sealing the secrets, you avoid exposing them in plain text and protect them from unauthorized access**
     ```
     # give permissions to run the script. It will install the kubernetes sealed secrets and deploy them
