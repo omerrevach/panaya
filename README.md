@@ -32,10 +32,10 @@ docker-compose-mysql-webapp/
 - Docker Compose
 
 ###  Setup Instructions
-1. **Clone this repository:**
+1. **Clone the last commit of this repository:**
     ```
-    git clone <repository_url>
-    cd <repository_directory>
+    git clone --depth 1 https://github.com/omerrevach/panaya.git
+    cd panaya
     ```
 
 2. **Create a .env file in the root directory:**
