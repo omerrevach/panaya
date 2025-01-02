@@ -26,6 +26,7 @@ docker-compose-mysql-webapp/
 ### Bonus Features
 - The Flask app gracefully handles database connection errorsusing exceptions and passing the error to the index.html for the user to see
 - The services follow best practices, such as using environment variables for configuration(.env).
+
 #### `Prerequisites`
 - Docker
 - Docker Compose
