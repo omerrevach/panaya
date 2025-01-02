@@ -1,0 +1,11 @@
+replicacount: 2
+
+image:
+  repository: rebachi/panaya
+  tag: latest
+  pullPolicy: Always
+
+service:
+  name: panaya
+  type: NodePort
+  port: 5000

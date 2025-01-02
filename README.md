@@ -1,62 +1,30 @@
-# Employee List
-
-## This is a simple web application for displaying employee information. The application uses Flask for the backend and MySQL as the database, with a Dockerized setup for easy deployment.
-
-![website](image.png)
-
 ```
-docker-compose-mysql-webapp/
-├── app
-│   ├── app.py
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   └── templates
-│       └── index.html
-├── docker-compose.yml
-├── init-db
-│   └── init.sql
-└── README.md
+curl -L -o minikube-linux-amd64 https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+minikube start
 ```
 
-### Application Features
-- **Employee Display:** The application retrieves employee information from a MySQL database and displays it in a user-friendly table format.
-- **Dynamic Data:** The employee list is dynamically fetched from the database, allowing for real-time updates as data changes.
 
+```
+# give permissions to run the script. It will install the kubernetes sealed secrets and deploy them
+chmod +x install_deploy_sealed-secrets.sh
+```
 
-### Bonus Features
-- The Flask app gracefully handles database connection errorsusing exceptions and passing the error to the index.html for the user to see
-- The services follow best practices, such as using environment variables for configuration(.env).
+```
+# this is for running the init.sql when the mysql pod is created
+kubectl create configmap init-db-config --from-file=init-db/init.sql
+```
 
-#### `Prerequisites`
-- Docker
-- Docker Compose
+```
+helm upgrade --install panaya flask-app
+```
 
-###  Setup Instructions
-1. **Clone the last commit of this repository:**
-    ```
-    git clone --depth 1 https://github.com/omerrevach/panaya.git
-    cd panaya
-    ```
+```
+# to open in browser
 
-2. **Create a .env file in the root directory:**
-    ```
-    MYSQL_DATABASE=panaya
-    MYSQL_ROOT_PASSWORD=secret
-    MYSQL_USER=omer
-    MYSQL_PASSWORD=omer
-    ```
+# get the nodeport of the flask service
+kubectl get svc
 
-3. **Start the application:**
-    ```
-    docker-compose up --build -d
-    ```
-
-4. **Open your browser and navigate to:**
-    ```
-    http://127.0.0.1:5000
-    ```
-
-5. **To stop the application:**
-    ```
-    docker-compose down
-    ```
+# in browser to access the app
+192.168.49.2:<nodePort>
+```
