@@ -26,16 +26,9 @@
 - minikube
 
 ###  Setup Instructions
-1. **Install and start minikube**
-    ```
-    curl -L -o minikube-linux-amd64 https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
-    sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
-    minikube start
-    ```
-
 1. **Clone the minikube branch**
     ```
-    git clone --branch minikube https://github.com/omerrevach/panaya.git
+    git clone --branch minikube --depth 1 https://github.com/omerrevach/panaya.git
     cd panaya
     ```
 
@@ -51,17 +44,29 @@
     kubectl create configmap init-db-config --from-file=init-db/init.sql
     ```
 
-4 **Install the helm chart**
+3. **Add minikube ingress**
     ```
+    minikube addons enable ingress
+    ```
+
+4. **Install the Helm Chart**
+    ```bash
     helm upgrade --install panaya flask-app
     ```
 
-5. **OPen app in browser**
+5. **Open app in browser**
     ```
-    # get the nodeport of the flask service
-    kubectl get svc
+    sudo nano /etc/hosts
 
-    # in browser to access the app
-    192.168.49.2:<nodePort>
+    # add this line
+    192.168.49.2 panaya.com
+
+    # in browser enter:
+    http://panaya.com
     ```
-#
+5. **To remove everything**
+    ```
+    helm uninstall panaya
+    kubectl delete sealedsecret my-db-secret
+    kubectl delete configmap init-db-config
+    ```
